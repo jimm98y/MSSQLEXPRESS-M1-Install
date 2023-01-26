@@ -6,12 +6,13 @@ $sqlManagementStudioDownloadUrl = "https://aka.ms/ssmsfullsetup?clcid=0x409"
 $sqlYear = 2019
 $sqlVersion = 15
 $instanceName = "MSSQLSERVER"
+$user = whoami
 
 $expressInstallerPath = "./Temp/SQL$sqlYear-SSEI-Dev.exe"
 $fullInstallerPath = "./Temp/SQLServer$sqlYear-DEV-x64-ENU.exe"
 $setupFolderPath = "./Temp/SQLServer$sqlYear-DEV-x64-ENU"
 $ssmsInstallerPath = "./Temp/SSMS-Setup-ENU.exe"
-$sqlInstallArgs = "/qs /ACTION=Install /FEATURES=SQL /INSTANCENAME=$instanceName /ENU /IACCEPTSQLSERVERLICENSETERMS /SQLSYSADMINACCOUNTS=BUILTIN\ADMINISTRATORS /UPDATEENABLED=false /USEMICROSOFTUPDATE=false"
+$sqlInstallArgs = "/qs /ACTION=Install /FEATURES=SQL /INSTANCENAME=$instanceName /ENU /IACCEPTSQLSERVERLICENSETERMS /SQLSYSADMINACCOUNTS=$user /UPDATEENABLED=false /USEMICROSOFTUPDATE=false"
 
 $maxDownloadRepeatCount = 5
 $actualInstanceName = $instanceName
@@ -131,7 +132,8 @@ $value = "-l$installedPath\DATA\mastlog.ldf"
 New-ItemProperty -Path $registryPath -Name $name -Value $value -Force
 
 # rebuild databases
-Start-Process -FilePath "$setupFolderPath/SETUP.EXE" -ArgumentList "/QUIET /ACTION=REBUILDDATABASE /INSTANCENAME=$actualInstanceName /ENU /SQLSYSADMINACCOUNTS=BUILTIN\ADMINISTRATORS" -Wait
+$user = whoami
+Start-Process -FilePath "$setupFolderPath/SETUP.EXE" -ArgumentList "/QUIET /ACTION=REBUILDDATABASE /INSTANCENAME=$actualInstanceName /ENU /SQLSYSADMINACCOUNTS=$user" -Wait
 
 # run the service - it should start now
 net start $serviceName

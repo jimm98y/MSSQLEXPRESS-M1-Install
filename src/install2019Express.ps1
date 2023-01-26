@@ -6,6 +6,7 @@ $sqlManagementStudioDownloadUrl = "https://aka.ms/ssmsfullsetup?clcid=0x409"
 $sqlYear = 2019
 $sqlVersion = 15
 $instanceName = "SQLEXPRESS"
+$user = whoami
 
 $expressInstallerPath = "./Temp/SQL$sqlYear-SSEI-Expr.exe"
 $fullInstallerPath = "./Temp/SQLEXPR_x64_ENU.exe"
@@ -131,7 +132,8 @@ $value = "-l$installedPath\DATA\mastlog.ldf"
 New-ItemProperty -Path $registryPath -Name $name -Value $value -Force
 
 # rebuild databases
-Start-Process -FilePath "$setupFolderPath/SETUP.EXE" -ArgumentList "/QUIET /ACTION=REBUILDDATABASE /INSTANCENAME=$actualInstanceName /ENU /SQLSYSADMINACCOUNTS=BUILTIN\ADMINISTRATORS" -Wait
+$user = whoami
+Start-Process -FilePath "$setupFolderPath/SETUP.EXE" -ArgumentList "/QUIET /ACTION=REBUILDDATABASE /INSTANCENAME=$actualInstanceName /ENU /SQLSYSADMINACCOUNTS=$user" -Wait
 
 # run the service - it should start now
 net start $serviceName
