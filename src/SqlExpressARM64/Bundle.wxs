@@ -42,12 +42,15 @@
 		<!-- Second attempt to install would fail because of the FILESTREAM feature installing the RsFx0700 driver. -->
 		<!-- Fortunately, the file has already been installed during the first attempt. -->
 		<!-- We register the driver here, which means the installation will skip the failing step and continue until the very end. -->
-		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix.bat">
+		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix1.bat">
 			<Payload SourceFile="RsFx0700.reg" />
 		</ExePackage>
 		
 		<!-- Second attempt to install - it should be successful now. -->
-	    <PackageGroupRef Id="SQLServerExpress2022SecondRun" />
+		<PackageGroupRef Id="SQLServerExpress2022SecondRun" />
+
+		<!-- Make sure we remove the driver right after the installation, otherwise uninstallation would fail due to the same issue. -->
+		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix2.bat" />
     </Chain>
   </Bundle>
 </Wix>
