@@ -20,9 +20,18 @@
 	<Variable Name="InstanceName" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
 
     <Chain DisableSystemRestore="yes">
-		<PackageGroupRef Id="SQLServerExpress2022" />
-		<PackageGroupRef Id="SQLServerExpress2022SecondRun" />
-		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix.bat" />
+		<!-- First attempt to install - it'll fail because of AzureAttestService failing to start. -->
+		<PackageGroupRef Id="SQLServerExpress2022FirstRun" />
+		
+		<!-- Second attempt to install would fail because of the FILESTREAM feature installing the RsFx0700 driver. -->
+		<!-- Fortunately, the file has already been installed during the first attempt. -->
+		<!-- We register the driver here, which means the installation will skip the failing step and continue until the very end. -->
+		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix.bat">
+			<Payload SourceFile="RsFx0700.reg" />
+		</ExePackage>
+		
+		<!-- Second attempt to install - it should be successful now. -->
+	    <PackageGroupRef Id="SQLServerExpress2022SecondRun" />
     </Chain>
   </Bundle>
 </Wix>

@@ -27,8 +27,6 @@
 						ProductName="Microsoft SQL Server 2022"
 						Size="279293816"
 						Version="16.0.1000.6"  />
-				<!-- Ignore the error code 0x80004005 -->
-				<ExitCode Value="-2147467259" Behavior="success" />
 			</ExePackage>
 		</PackageGroup>
 	</Fragment>
