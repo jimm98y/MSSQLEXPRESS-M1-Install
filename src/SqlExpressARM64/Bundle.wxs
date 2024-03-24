@@ -5,6 +5,7 @@
 	  Version="1.0.0.0" 
 	  UpgradeCode="9c470db2-ae3b-4502-bffa-80f697118b46"
 	  DisableModify="yes">
+	  
     <BootstrapperApplication>
       <bal:WixStandardBootstrapperApplication 
 			LicenseUrl="https://github.com/jimm98y/MSSQLEXPRESS-M1-Install/blob/main/LICENSE" 
@@ -29,8 +30,10 @@
 		Message="This application requires Windows 11 (build 22000) or newer."
 		Condition="WINDOWSBUILDNUMBER &gt;= 22000" />
 
-    <!-- SQL instance name can be changed from the cmd line -->
+    <!-- These can be changed from the cmd line -->
 	<Variable Name="InstanceName" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
+	<Variable Name="SqlFeatures" Persisted="yes" Type="string" Value="SQLENGINE" bal:Overridable="yes" />
+	<Variable Name="SqlArguments" Persisted="yes" Type="string" Value="/ENU" bal:Overridable="yes" />
 	  
     <Chain DisableSystemRestore="yes">
 		<!-- First attempt to install - it'll fail because of AzureAttestService failing to start. -->

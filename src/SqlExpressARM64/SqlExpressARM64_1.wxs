@@ -14,7 +14,7 @@
 						PerMachine="yes"
 						Vital="yes"
 						Permanent="no"
-						InstallArguments='/qs /ACTION="Install" /FEATURES=SQLENGINE /INSTANCENAME="[InstanceName]" /ENU /IACCEPTSQLSERVERLICENSETERMS="True" /UPDATEENABLED=false /USEMICROSOFTUPDATE=false'
+						InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[InstanceName]" /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
 						UninstallArguments='/qs /Action="Uninstall" /INSTANCENAME="[InstanceName]" /FEATURES=SQLENGINE /HIDECONSOLE'
 						InstallCondition="NOT (SqlInstanceKeyFound)"
 						DetectCondition="SqlInstanceKeyFound">

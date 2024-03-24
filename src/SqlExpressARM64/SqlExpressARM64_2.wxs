@@ -1,20 +1,13 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
 	 xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
 	<Fragment>
-		<util:RegistrySearch Id="SqlInstanceKeyFoundSearchSecondRun"
-						Root="HKLM"
-						Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
-						Value="[InstanceName]"
-						Result="exists"
-						Variable="SqlInstanceKeyFound" />
-
 		<PackageGroup Id="SQLServerExpress2022SecondRun">
 			<ExePackage DisplayName="Installing SQL Server Express 2022"
 						CacheId="SQLServerExpress2022SecondRun"
 						PerMachine="yes"
 						Vital="yes"
 						Permanent="yes"
-						InstallArguments='/qs /ACTION="Install" /FEATURES=SQLENGINE /INSTANCENAME="[InstanceName]" /ENU /IACCEPTSQLSERVERLICENSETERMS="True" /UPDATEENABLED=false /USEMICROSOFTUPDATE=false'
+						InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[InstanceName]" /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
 						InstallCondition="NOT (SqlInstanceKeyFound)"
 						DetectCondition="SqlInstanceKeyFound">
 				<ExePackagePayload
