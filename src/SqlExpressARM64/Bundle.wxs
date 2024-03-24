@@ -1,0 +1,28 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+  <Bundle
+	  Name="SQL Express 2022 ARM64" 
+	  Manufacturer="Lukas Volf"
+	  Version="1.0.0.0" 
+	  UpgradeCode="9c470db2-ae3b-4502-bffa-80f697118b46"
+	  DisableModify="yes">
+    <BootstrapperApplication>
+      <bal:WixStandardBootstrapperApplication 
+			LicenseUrl="https://github.com/jimm98y/MSSQLEXPRESS-M1-Install/blob/main/LICENSE" 
+			Theme="hyperlinkLicense" 
+			LogoFile="logo.jpg" 
+			ShowVersion="no"
+			SuppressOptionsUI="yes"
+			ThemeFile="SqlHyperlinkTheme.xml"
+			LocalizationFile="SqlHyperlinkTheme.wxl"
+			/>
+    </BootstrapperApplication>
+
+	<Variable Name="InstanceName" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
+
+    <Chain DisableSystemRestore="yes">
+		<PackageGroupRef Id="SQLServerExpress2022" />
+		<PackageGroupRef Id="SQLServerExpress2022SecondRun" />
+		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix.bat" />
+    </Chain>
+  </Bundle>
+</Wix>
