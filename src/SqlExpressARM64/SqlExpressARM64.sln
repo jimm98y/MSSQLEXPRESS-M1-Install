@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "SqlExpress2022_ARM64", "SqlExpress2022_ARM64.wixproj", "{420FA3FD-AEDD-430E-B063-F9C8404676A7}"
+Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Sql2022ExpressARM64", "Sql2022ExpressARM64.wixproj", "{420FA3FD-AEDD-430E-B063-F9C8404676A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
