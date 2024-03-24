@@ -7,7 +7,7 @@
 						PerMachine="yes"
 						Vital="yes"
 						Permanent="yes"
-						InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[InstanceName]" /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
+						InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[SqlInstance]" /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
 						InstallCondition="NOT (SqlInstanceKeyFound)"
 						DetectCondition="SqlInstanceKeyFound">
 				<ExePackagePayload

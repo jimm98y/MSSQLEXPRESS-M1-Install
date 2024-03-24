@@ -31,7 +31,7 @@
 		Condition="WINDOWSBUILDNUMBER &gt;= 22000" />
 
     <!-- These can be changed from the cmd line -->
-	<Variable Name="InstanceName" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
+	<Variable Name="SqlInstance" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
 	<Variable Name="SqlFeatures" Persisted="yes" Type="string" Value="SQLENGINE" bal:Overridable="yes" />
 	<Variable Name="SqlArguments" Persisted="yes" Type="string" Value="/ENU" bal:Overridable="yes" />
 	  
@@ -49,7 +49,7 @@
 		<!-- Second attempt to install - it should be successful now. -->
 		<PackageGroupRef Id="SQLServerExpress2022SecondRun" />
 
-		<!-- Make sure we remove the driver right after the installation, otherwise uninstallation would fail due to the same issue. -->
+		<!-- Make sure we remove the driver registration right after the installation, otherwise uninstallation will fail due to the same issue. -->
 		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix2.bat" />
     </Chain>
   </Bundle>

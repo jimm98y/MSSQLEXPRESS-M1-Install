@@ -4,7 +4,7 @@
 		<util:RegistrySearch Id="SqlInstanceKeyFoundSearch"
 						Root="HKLM"
 						Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
-						Value="[InstanceName]"
+						Value="[SqlInstance]"
 						Result="exists"
 						Variable="SqlInstanceKeyFound" />
 
@@ -14,8 +14,8 @@
 						PerMachine="yes"
 						Vital="yes"
 						Permanent="no"
-						InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[InstanceName]" /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
-						UninstallArguments='/qs /Action="Uninstall" /INSTANCENAME="[InstanceName]" /FEATURES=SQLENGINE /HIDECONSOLE'
+						InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[SqlInstance]" /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
+						UninstallArguments='/qs /Action="Uninstall" /INSTANCENAME="[SqlInstance]" /FEATURES=SQLENGINE /HIDECONSOLE'
 						InstallCondition="NOT (SqlInstanceKeyFound)"
 						DetectCondition="SqlInstanceKeyFound">
 				<ExePackagePayload
