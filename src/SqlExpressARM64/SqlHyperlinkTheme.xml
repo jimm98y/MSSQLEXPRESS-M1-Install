@@ -24,8 +24,12 @@
 			<Label X="11" Y="80" Width="-11" Height="30" FontId="2" DisablePrefix="yes" Visible="no" Name="CheckingForUpdatesLabel" />
 		</Page>
 		<Page Name="Install">
-			<Label X="11" Y="121" Width="-11" Height="60" FontId="3" DisablePrefix="yes" Visible="no" Name="DescriptionLabel" />
-			<Hypertext Name="EulaHyperlink" X="11" Y="181" Width="-11" Height="51" TabStop="yes" FontId="3" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
+			<Label X="11" Y="91" Width="-11" Height="60" FontId="3" DisablePrefix="yes" Visible="no" Name="DescriptionLabel" />
+
+			<Label X="11" Y="165" Width="120" Height="21" FontId="3" DisablePrefix="yes" Visible="no" Name="SqlInstanceLabel" />
+			<Editbox Name="SqlInstance" X="144" Y="163" Width="-11" Height="21" TabStop="yes" FontId="3" />
+			
+			<Hypertext Name="EulaHyperlink" X="11" Y="191" Width="-11" Height="51" TabStop="yes" FontId="3" HideWhenDisabled="yes">#(loc.InstallLicenseLinkText)</Hypertext>
 			<Checkbox Name="EulaAcceptCheckbox" X="-11" Y="-41" Width="260" Height="17" TabStop="yes" FontId="3" HideWhenDisabled="yes">#(loc.InstallAcceptCheckbox)</Checkbox>
 			
 			<Button Name="InstallUpdateButton" X="11" Y="-11" Width="200" Height="23" TabStop="yes" FontId="0" EnableCondition="WixStdBAUpdateAvailable" HideWhenDisabled="yes">#(loc.UpdateButton)</Button>
@@ -33,6 +37,7 @@
 				<Text>#(loc.InstallOptionsButton)</Text>
 				<ChangePageAction Page="Options" />
 			</Button>
+			
 			<Button Name="InstallButton" X="-91" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.InstallInstallButton)</Button>
 			<Button Name="InstallCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">
 				<Text>#(loc.InstallCancelButton)</Text>

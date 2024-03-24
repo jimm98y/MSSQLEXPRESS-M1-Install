@@ -1,6 +1,6 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
   <Bundle
-	  Name="SQL Express 2022 ARM64" 
+	  Name="SQL 2022 Express ARM64" 
 	  Manufacturer="Lukas Volf"
 	  Version="1.0.0.0" 
 	  UpgradeCode="9c470db2-ae3b-4502-bffa-80f697118b46"

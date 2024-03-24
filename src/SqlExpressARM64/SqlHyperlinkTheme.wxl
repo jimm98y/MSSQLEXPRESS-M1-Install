@@ -67,4 +67,5 @@
 	<String Id="FilesInUseIgnoreButton" Value="&amp;Ignore" />
 	<String Id="FilesInUseExitButton" Value="E&amp;xit" />
 	<String Id="DescriptionLabel" Value="This installer will attempt to download and install Microsoft SQL Server 2022 Express on Windows 11 ARM64. Some features (FILESTREAM, Network Configuration GUI, Azure Attestation) are not supported due to ARM64 compatibility issues." />
+	<String Id="SqlInstanceLabel" Value="SQL Instance Name:" />
 </WixLocalization>
