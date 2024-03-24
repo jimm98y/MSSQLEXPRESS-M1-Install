@@ -1,4 +1,4 @@
-﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal">
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
   <Bundle
 	  Name="SQL Express 2022 ARM64" 
 	  Manufacturer="Lukas Volf"
@@ -17,8 +17,21 @@
 			/>
     </BootstrapperApplication>
 
-	<Variable Name="InstanceName" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
+	<!-- Make sure we are running on Windows 11 -->
+	<Variable Name="WINDOWSBUILDNUMBER" Persisted="no" />
+	<util:RegistrySearch
+		Id="BuildNumberSearch"
+		Variable="WINDOWSBUILDNUMBER"
+		Root="HKLM"
+		Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+		Value="CurrentBuildNumber" />
+	<bal:Condition
+		Message="This application requires Windows 11 (build 22000) or newer."
+		Condition="WINDOWSBUILDNUMBER &gt;= 22000" />
 
+    <!-- SQL instance name can be changed from the cmd line -->
+	<Variable Name="InstanceName" Persisted="yes" Type="string" Value="SQLEXPRESS" bal:Overridable="yes" />
+	  
     <Chain DisableSystemRestore="yes">
 		<!-- First attempt to install - it'll fail because of AzureAttestService failing to start. -->
 		<PackageGroupRef Id="SQLServerExpress2022FirstRun" />
