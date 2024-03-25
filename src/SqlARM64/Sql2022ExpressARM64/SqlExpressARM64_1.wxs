@@ -9,7 +9,7 @@
 						Variable="SqlInstanceKeyFound" />
 
 		<PackageGroup Id="SQLServerExpress2022FirstRun">
-			<ExePackage DisplayName="Installing SQL Server Express 2022"
+			<ExePackage DisplayName="Installing SQL Server 2022 Express"
 						CacheId="SQLServerExpress2022"
 						PerMachine="yes"
 						Vital="yes"
