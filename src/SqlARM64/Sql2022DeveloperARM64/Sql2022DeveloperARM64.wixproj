@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fix1.bat" />
+    <None Include="fix0.bat" />
     <None Include="fix2.bat" />
     <None Include="RsFx0700.reg" />
   </ItemGroup>

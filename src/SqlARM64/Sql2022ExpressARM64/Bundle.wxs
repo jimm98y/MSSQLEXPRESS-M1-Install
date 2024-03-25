@@ -43,6 +43,13 @@
 		Variable="SqlInstanceKeyFound" />
 	  
     <Chain DisableSystemRestore="yes">
+		<!-- Fix uninstallation in case there is a previous version of the SQL Server installed using PowerShell scripts -->
+		<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix0.bat" CacheId="DEFEF266-1437-49A0-9443-3C58B304B624">
+			<ExitCode Value="-2147023836" Behavior="success" />
+			<ExitCode Value="1060" Behavior="success" />
+			<ExitCode Value="0" Behavior="success" />
+		</ExePackage>
+		
 		<!-- First attempt to install - it'll fail because of AzureAttestService failing to start. -->
 		<ExePackage 
 			DisplayName="SQL Server 2022 Express"
