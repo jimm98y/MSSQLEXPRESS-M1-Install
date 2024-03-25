@@ -1,0 +1,1 @@
+sc.exe delete RsFx0600

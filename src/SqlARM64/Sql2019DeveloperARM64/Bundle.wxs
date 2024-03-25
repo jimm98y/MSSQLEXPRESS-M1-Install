@@ -1,9 +1,9 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
 	<Bundle
-		Name="SQL 2022 Developer ARM64"
+		Name="SQL 2019 Developer ARM64"
 		Manufacturer="Lukas Volf"
 		Version="1.0.0.0"
-		UpgradeCode="9c470db2-ae3b-4502-bffa-80f697118b46"
+		UpgradeCode="D7603A2E-900E-4BBD-8CAD-83C35E696990"
 		DisableModify="yes">
 
 		<BootstrapperApplication>
@@ -45,11 +45,11 @@
 		<PayloadGroup Id="SqlDataFile">
 			<Payload
 				Id="SQLServerDeveloperBox"
-				Name="SQLServer2022-DEV-x64-ENU.box"
+				Name="SQLServer2019-DEV-x64-ENU.box"
 				Compressed="no"
-				DownloadUrl="https://download.microsoft.com/download/3/8/d/38de7036-2433-4207-8eae-06e247e17b25/SQLServer2022-DEV-x64-ENU.box"
-				Hash="F4021CA2BB318C4836B66009FC4A3610BE2176955C4E7823D12174A4FE0D44D127E18BEA482ECF49815528185F65A9EA3DBEAC0BAD5D04D799A82E2C0AF47E08"
-				Size="1233642686" />
+				DownloadUrl="https://download.microsoft.com/download/8/4/c/84c6c430-e0f5-476d-bf43-eaaa222a72e0/SQLServer2019-DEV-x64-ENU.box"
+				Hash="0CB640E5FC78CFDDCBD65F5C15238C29C72521EAB1BEF2CFBAD5C18D3F7EE393B76DA7CC229FED7F46988766B959A8A5866E9E55B78FC52E422424BF5580A7B3"
+				Size="1485070232" />
 		</PayloadGroup>
 
 		<Chain DisableSystemRestore="yes">
@@ -62,7 +62,7 @@
 			
 			<!-- First attempt to install - it'll fail because of AzureAttestService failing to start. -->
 			<ExePackage 
-				DisplayName="SQL Server 2022 Developer"
+				DisplayName="SQL Server 2019 Developer"
 				CacheId="SQLServerFirstRun"
 				PerMachine="yes"
 				Vital="yes"
@@ -76,14 +76,14 @@
 
 				<ExePackagePayload
 					Id="SQLServerFirstRun"
-					Name="SQLServer2022-DEV-x64-ENU.exe"
-					DownloadUrl="https://download.microsoft.com/download/3/8/d/38de7036-2433-4207-8eae-06e247e17b25/SQLServer2022-DEV-x64-ENU.exe"
+					Name="SQLServer2019-DEV-x64-ENU.exe"
+					DownloadUrl="https://download.microsoft.com/download/8/4/c/84c6c430-e0f5-476d-bf43-eaaa222a72e0/SQLServer2019-DEV-x64-ENU.exe"
 					Compressed="no"
-					Description="Microsoft SQL Server 2022"
-					Hash="CF6E532DA223A3BFE7F50EE1208E329DC38F16010462CAF78DE9E8E78DDA74FF4DFBACB74F7F15E52311953A15FB3AE4649D338C319C4EDC3F015FB5BA6B4E44"
-					ProductName="Microsoft SQL Server 2022"
-					Version="16.0.1000.6"
-					Size="221184" />
+					Description="Microsoft SQL Server 2019"
+					Hash="0374EE4BEAE5006EDDD4FD114AD60665D5B1286FA45596692B324F5921DED40CBABC3D99FF658A849EEC19A24C93884D89B25D2DDB70601415C8D8DA184C57FC"
+					ProductName="Microsoft SQL Server 2019"
+					Version="15.0.2000.5"
+					Size="156664" />
 
 				<!-- Ignore the error code 0x84BC06BA - caused by C:\Program Files\Microsoft\AzureAttestService\AzureAttestServiceInstaller.exe -Install AzureAttestService.dll -->
 				<!-- The AzureAttestService was installed, but it cannot be started on ARM64. Running the installation again no longer attempts to start the service and the installation simply continues. -->
@@ -94,12 +94,12 @@
 			<!-- Fortunately, the file has already been installed during the first attempt. -->
 			<!-- We register the driver here, which means the installation will skip the failing step and continue until the very end. -->
 			<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix1.bat">
-				<Payload SourceFile="RsFx0700.reg" />
+				<Payload SourceFile="RsFx0600.reg" />
 			</ExePackage>
 
 			<!-- Second attempt to install - it should be successful now. -->
 			<ExePackage 
-				DisplayName="SQL Server 2022 Developer"
+				DisplayName="SQL Server 2019 Developer"
 				CacheId="SQLServerSecondRun"
 				PerMachine="yes"
 				Vital="yes"
@@ -112,14 +112,14 @@
 
 				<ExePackagePayload
 					Id="SQLServerSecondRun"
-					Name="SQLServer2022-DEV-x64-ENU_Second.exe"
-					DownloadUrl="https://download.microsoft.com/download/3/8/d/38de7036-2433-4207-8eae-06e247e17b25/SQLServer2022-DEV-x64-ENU.exe"
+					Name="SQLServer2019-DEV-x64-ENU_Second.exe"
+					DownloadUrl="https://download.microsoft.com/download/8/4/c/84c6c430-e0f5-476d-bf43-eaaa222a72e0/SQLServer2019-DEV-x64-ENU.exe"
 					Compressed="no"
-					Description="Microsoft SQL Server 2022"
-					Hash="CF6E532DA223A3BFE7F50EE1208E329DC38F16010462CAF78DE9E8E78DDA74FF4DFBACB74F7F15E52311953A15FB3AE4649D338C319C4EDC3F015FB5BA6B4E44"
-					ProductName="Microsoft SQL Server 2022"
-					Version="16.0.1000.6"
-					Size="221184" />
+					Description="Microsoft SQL Server 2019"
+					Hash="0374EE4BEAE5006EDDD4FD114AD60665D5B1286FA45596692B324F5921DED40CBABC3D99FF658A849EEC19A24C93884D89B25D2DDB70601415C8D8DA184C57FC"
+					ProductName="Microsoft SQL Server 2019"
+					Version="15.0.2000.5"
+					Size="156664" />
 			</ExePackage>
 
 			<!-- Make sure we remove the driver registration right after the installation, otherwise uninstallation will fail due to the same issue. -->
