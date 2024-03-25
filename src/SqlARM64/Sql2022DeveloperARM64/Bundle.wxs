@@ -54,7 +54,7 @@
 
 		<Chain DisableSystemRestore="yes">
 			<!-- Fix uninstallation in case there is a previous version of the SQL Server installed using PowerShell scripts -->
-			<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix0.bat" CacheId="6B57BD27-D9D4-4663-9493-AE9A2F29C383">
+			<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix0.bat">
 				<ExitCode Value="-2147023836" Behavior="success" />
 				<ExitCode Value="1060" Behavior="success" />
 				<ExitCode Value="0" Behavior="success" />
