@@ -5,16 +5,42 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Sql2022ExpressARM64", "Sql2022ExpressARM64\Sql2022ExpressARM64.wixproj", "{063BED15-B67B-4B92-B4F8-55C2770512F8}"
 EndProject
+Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "Sql2022DeveloperARM64", "Sql2022DeveloperARM64\Sql2022DeveloperARM64.wixproj", "{D30E3335-9A01-4B4A-B1C0-95693D2B321F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Debug|ARM64.ActiveCfg = Debug|ARM64
 		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Debug|ARM64.Build.0 = Debug|ARM64
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Debug|x64.ActiveCfg = Debug|x64
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Debug|x64.Build.0 = Debug|x64
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Debug|x86.ActiveCfg = Debug|x86
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Debug|x86.Build.0 = Debug|x86
 		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Release|ARM64.ActiveCfg = Release|ARM64
 		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Release|ARM64.Build.0 = Release|ARM64
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Release|x64.ActiveCfg = Release|x64
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Release|x64.Build.0 = Release|x64
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Release|x86.ActiveCfg = Release|x86
+		{063BED15-B67B-4B92-B4F8-55C2770512F8}.Release|x86.Build.0 = Release|x86
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Debug|ARM64.Build.0 = Debug|ARM64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Debug|x64.ActiveCfg = Debug|x64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Debug|x64.Build.0 = Debug|x64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Debug|x86.ActiveCfg = Debug|x86
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Debug|x86.Build.0 = Debug|x86
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Release|ARM64.Build.0 = Release|ARM64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Release|x64.ActiveCfg = Release|x64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Release|x64.Build.0 = Release|x64
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Release|x86.ActiveCfg = Release|x86
+		{D30E3335-9A01-4B4A-B1C0-95693D2B321F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
