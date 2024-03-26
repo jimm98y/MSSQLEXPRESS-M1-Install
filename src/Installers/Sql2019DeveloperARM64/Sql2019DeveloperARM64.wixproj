@@ -1,0 +1,23 @@
+﻿<Project Sdk="WixToolset.Sdk/4.0.5">
+  <PropertyGroup>
+    <OutputType>Bundle</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Bal.wixext" Version="4.0.5" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="4.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="SqlHyperlinkTheme.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.jpg" />
+    <Content Include="SqlHyperlinkTheme.wxl" />
+    <Content Include="SqlHyperlinkTheme.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fix1.bat" />
+    <None Include="fix0.bat" />
+    <None Include="fix2.bat" />
+    <None Include="RsFx0600.reg" />
+  </ItemGroup>
+</Project>

@@ -1,16 +1,25 @@
 # MSSQLEXPRESS-M1-Install
-Install scripts for Microsoft SQL Server Express on Apple M1 in Parallels.
+Unofficial installers for Microsoft SQL Server on Windows 11 ARM64.
 
-## Installation
-Copy all scripts from the /src folder into some folder in the Parallels VM. It should be a local folder and you must have full permissions for this folder, so ideally please use some folder in the root of your drive e.g. C:\Temp or C:\SqlInstall. Decide which flavor of the SQL Server you want to install and run the *.bat file. Grant elevated permissions for the PowerShell and wait until the script completes. 
+## Installers
+You can download the installers in Releases.
 
-## Editions
+## Scripts
+You can find the scripts in /src/Scripts. Choose the version/edition of the SQL Server you want to install, download the *.bat file, place it into some folder where you have write permissions (e.g. C:\Temp) and run it as Admin, or grant the UAC elevation when you execute it.
+
+## Legacy Scripts
+You can still find the original legacy scripts in /src/_DO_NOT_USE_LEGACY_SCRIPTS. However, using the installers or new scripts is preferred because now the SQL installation completes successfuly with all registry entries in place. Legacy scripts are kept only for cases when you'd run into issues using the new method.
+
+## Supported Editions
 - Microsoft SQL 2019 Express
 - Microsoft SQL 2019 Developer
 - Microsoft SQL 2022 Express
 - Microsoft SQL 2022 Developer
 
+## Features not working on ARM64
+- Filestream (requires a system driver which is not avaialble on ARM64)
+- Azure Attestation (AzureAttestService cannot be started on ARM64)
+- 64-bit SQL Configuration Manager not working (mmc.exe is only avaialble as ARM64 (non-EC) process and it cannot load x64 DLLs, so configuraiton of some features must be done through registry)
+
 ## Requirements
-- Apple M1, M2, M3
-- Parallels Desktop (tested on 18.1.1)
-- Windows 11 for ARM64 (Windows 10 was not tested)
+- Windows 11 ARM64

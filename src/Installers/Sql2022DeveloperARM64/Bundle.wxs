@@ -1,0 +1,129 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal" xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+	<Bundle
+		Name="SQL 2022 Developer ARM64"
+		Manufacturer="Lukas Volf"
+		Version="1.0.0.0"
+		UpgradeCode="9c470db2-ae3b-4502-bffa-80f697118b46"
+		DisableModify="yes">
+
+		<BootstrapperApplication>
+			<bal:WixStandardBootstrapperApplication
+				  LicenseUrl="https://github.com/jimm98y/MSSQLEXPRESS-M1-Install/blob/main/LICENSE"
+				  Theme="hyperlinkLicense"
+				  LogoFile="logo.jpg"
+				  ShowVersion="no"
+				  SuppressOptionsUI="yes"
+				  ThemeFile="SqlHyperlinkTheme.xml"
+				  LocalizationFile="SqlHyperlinkTheme.wxl" />
+		</BootstrapperApplication>
+
+		<!-- Make sure we are running on Windows 11 -->
+		<Variable Name="WINDOWSBUILDNUMBER" Persisted="no" />
+		<util:RegistrySearch
+			Id="BuildNumberSearch"
+			Variable="WINDOWSBUILDNUMBER"
+			Root="HKLM"
+			Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+			Value="CurrentBuildNumber" />
+		<bal:Condition
+			Message="This application requires Windows 11 (build 22000) or newer."
+			Condition="WINDOWSBUILDNUMBER &gt;= 22000" />
+
+		<!-- These can be changed from the cmd line -->
+		<Variable Name="SqlInstance" Persisted="yes" Type="string" Value="SQLDEVELOPER" bal:Overridable="yes" />
+		<Variable Name="SqlFeatures" Persisted="yes" Type="string" Value="SQLENGINE" bal:Overridable="yes" />
+		<Variable Name="SqlArguments" Persisted="yes" Type="string" Value="/ENU" bal:Overridable="yes" />
+
+		<util:RegistrySearch
+			Id="SqlInstanceKeyFoundSearch"
+			Root="HKLM"
+			Key="SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL"
+			Value="[SqlInstance]"
+			Result="exists"
+			Variable="SqlInstanceKeyFound" />
+		
+		<PayloadGroup Id="SqlDataFile">
+			<Payload
+				Id="SQLServerDeveloperBox"
+				Name="SQLServer2022-DEV-x64-ENU.box"
+				Compressed="no"
+				DownloadUrl="https://download.microsoft.com/download/3/8/d/38de7036-2433-4207-8eae-06e247e17b25/SQLServer2022-DEV-x64-ENU.box"
+				Hash="F4021CA2BB318C4836B66009FC4A3610BE2176955C4E7823D12174A4FE0D44D127E18BEA482ECF49815528185F65A9EA3DBEAC0BAD5D04D799A82E2C0AF47E08"
+				Size="1233642686" />
+		</PayloadGroup>
+
+		<Chain DisableSystemRestore="yes">
+			<!-- Fix uninstallation in case there is a previous version of the SQL Server installed using PowerShell scripts -->
+			<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix0.bat">
+				<ExitCode Value="-2147023836" Behavior="success" />
+				<ExitCode Value="1060" Behavior="success" />
+				<ExitCode Value="0" Behavior="success" />
+			</ExePackage>
+			
+			<!-- First attempt to install - it'll fail because of AzureAttestService failing to start. -->
+			<ExePackage 
+				DisplayName="SQL Server 2022 Developer"
+				CacheId="SQLServerFirstRun"
+				PerMachine="yes"
+				Vital="yes"
+				Permanent="no"
+				InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[SqlInstance]" /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
+				UninstallArguments='/qs /Action="Uninstall" /INSTANCENAME="[SqlInstance]" /FEATURES=SQLENGINE /HIDECONSOLE'
+				InstallCondition="NOT (SqlInstanceKeyFound)"
+				DetectCondition="SqlInstanceKeyFound">
+				
+				<PayloadGroupRef Id="SqlDataFile" />
+
+				<ExePackagePayload
+					Id="SQLServerFirstRun"
+					Name="SQLServer2022-DEV-x64-ENU.exe"
+					DownloadUrl="https://download.microsoft.com/download/3/8/d/38de7036-2433-4207-8eae-06e247e17b25/SQLServer2022-DEV-x64-ENU.exe"
+					Compressed="no"
+					Description="Microsoft SQL Server 2022"
+					Hash="CF6E532DA223A3BFE7F50EE1208E329DC38F16010462CAF78DE9E8E78DDA74FF4DFBACB74F7F15E52311953A15FB3AE4649D338C319C4EDC3F015FB5BA6B4E44"
+					ProductName="Microsoft SQL Server 2022"
+					Version="16.0.1000.6"
+					Size="221184" />
+
+				<!-- Ignore the error code 0x84BC06BA - caused by C:\Program Files\Microsoft\AzureAttestService\AzureAttestServiceInstaller.exe -Install AzureAttestService.dll -->
+				<!-- The AzureAttestService was installed, but it cannot be started on ARM64. Running the installation again no longer attempts to start the service and the installation simply continues. -->
+				<ExitCode Value="-2068052294" Behavior="success" />
+			</ExePackage>
+
+			<!-- Second attempt to install would fail because of the FILESTREAM feature installing the RsFx0700 driver. -->
+			<!-- Fortunately, the file has already been installed during the first attempt. -->
+			<!-- We register the driver here, which means the installation will skip the failing step and continue until the very end. -->
+			<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix1.bat">
+				<Payload SourceFile="RsFx0700.reg" />
+			</ExePackage>
+
+			<!-- Second attempt to install - it should be successful now. -->
+			<ExePackage 
+				DisplayName="SQL Server 2022 Developer"
+				CacheId="SQLServerSecondRun"
+				PerMachine="yes"
+				Vital="yes"
+				Permanent="yes"
+				InstallArguments='/qs /ACTION="Install" /FEATURES=[SqlFeatures] /INSTANCENAME="[SqlInstance]" /SQLSYSADMINACCOUNTS=BUILTIN\Administrators /IACCEPTSQLSERVERLICENSETERMS=true /UPDATEENABLED=false /USEMICROSOFTUPDATE=false [SqlArguments]'
+				InstallCondition="NOT (SqlInstanceKeyFound)"
+				DetectCondition="SqlInstanceKeyFound">
+				
+				<PayloadGroupRef Id="SqlDataFile" />
+
+				<ExePackagePayload
+					Id="SQLServerSecondRun"
+					Name="SQLServer2022-DEV-x64-ENU_Second.exe"
+					DownloadUrl="https://download.microsoft.com/download/3/8/d/38de7036-2433-4207-8eae-06e247e17b25/SQLServer2022-DEV-x64-ENU.exe"
+					Compressed="no"
+					Description="Microsoft SQL Server 2022"
+					Hash="CF6E532DA223A3BFE7F50EE1208E329DC38F16010462CAF78DE9E8E78DDA74FF4DFBACB74F7F15E52311953A15FB3AE4649D338C319C4EDC3F015FB5BA6B4E44"
+					ProductName="Microsoft SQL Server 2022"
+					Version="16.0.1000.6"
+					Size="221184" />
+			</ExePackage>
+
+			<!-- Make sure we remove the driver registration right after the installation, otherwise uninstallation will fail due to the same issue. -->
+			<ExePackage DetectCondition="false" PerMachine="yes" Permanent="yes" SourceFile="fix2.bat" />
+		</Chain>
+	</Bundle>
+</Wix>
