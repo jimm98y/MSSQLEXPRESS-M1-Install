@@ -17,7 +17,7 @@ You can still find the original legacy scripts in /src/_DO_NOT_USE_LEGACY_SCRIPT
 - Microsoft SQL 2022 Developer
 
 ## Features not working on ARM64
-- Filestream (requires a system driver which is not avaialble on ARM64)
+- Filestream (requires a system driver which is not available on ARM64)
 - Azure Attestation (AzureAttestService cannot be started on ARM64)
 - 64-bit SQL Configuration Manager not working (mmc.exe is only avaialble as ARM64 (non-EC) process and it cannot load x64 DLLs, so configuraiton of some features must be done through registry)
 
