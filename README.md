@@ -19,7 +19,7 @@ You can still find the original legacy scripts in /src/_DO_NOT_USE_LEGACY_SCRIPT
 ## Features not working on ARM64
 - Filestream (requires a system driver which is not available on ARM64)
 - Azure Attestation (AzureAttestService cannot be started on ARM64)
-- 64-bit SQL Configuration Manager not working (mmc.exe is only avaialble as ARM64 (non-EC) process and it cannot load x64 DLLs, so configuraiton of some features must be done through registry)
+- 64-bit SQL Configuration Manager not working (mmc.exe is only avaialble as ARM64 (non-EC) process and it cannot load x64 DLLs, so configuration of some features must be done through registry)
 
 ## Requirements
 - Windows 11 ARM64
