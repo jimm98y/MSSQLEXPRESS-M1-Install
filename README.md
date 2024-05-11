@@ -7,9 +7,6 @@ You can download the installers in Releases.
 ## Scripts
 You can find the scripts in /src/Scripts. Choose the version/edition of the SQL Server you want to install, download the *.bat file, place it into some folder where you have write permissions (e.g. C:\Temp) and run it as Admin, or grant the UAC elevation when you execute it.
 
-## Legacy Scripts
-You can still find the original legacy scripts in /src/_DO_NOT_USE_LEGACY_SCRIPTS. However, using the installers or new scripts is preferred because now the SQL installation completes successfuly with all registry entries in place. Legacy scripts are kept only for cases when you'd run into issues using the new method.
-
 ## Supported Editions
 - Microsoft SQL 2019 Express
 - Microsoft SQL 2019 Developer
