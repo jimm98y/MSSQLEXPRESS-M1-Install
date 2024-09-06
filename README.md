@@ -18,5 +18,8 @@ You can find the scripts in /src/Scripts. Choose the version/edition of the SQL 
 - Azure Attestation (AzureAttestService cannot be started on ARM64)
 - 64-bit SQL Configuration Manager not working (mmc.exe is only avaialble as ARM64 (non-EC) process and it cannot load x64 DLLs, so configuration of some features must be done through registry)
 
+## Authentication
+SQL Server is configured after installation with the BUILTIN\Administrators user group and using the Windows Authentication option. If you have issues logging in from the SQL Management Studio after the installation, please make sure you run it elevated ("Run as Administrator").
+
 ## Requirements
 - Windows 11 ARM64
