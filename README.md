@@ -13,6 +13,9 @@ You can find the scripts in /src/Scripts. Choose the version/edition of the SQL 
 - Microsoft SQL 2022 Express
 - Microsoft SQL 2022 Developer
 
+## SQL Server 2025
+SQL 2025 can be installed on ARM64 without any issues, so these scripts/installers are no longer necessary.
+
 ## Features not working on ARM64
 - Filestream (requires a system driver which is not available on ARM64)
 - Azure Attestation (AzureAttestService cannot be started on ARM64)
